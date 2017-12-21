@@ -12,11 +12,13 @@ int main(void){
   stochasticM = new ld* [MAXN];
   ld* X;
   ld* PageRank;
+  ld* sumColum;
   X = new ld[MAXN];
   PageRank = new ld[MAXN];
+  sumColum = new ld[MAXN];
   /* Forward-Links - Number Of Forward-Links By One Page */
   ll Fu, pages =0, i, j;
-  ld tolerance = 0.1, result =0, val, SUMA =0;
+  ld tolerance = 0.1, result =1, val, SUMA =0;
   srand(time(NULL));
   for(i =0; i< MAXN; ++i){
     stochasticM[i] = new ld[MAXN];
@@ -34,6 +36,14 @@ int main(void){
       stochasticM[Fu][i] += 1/(ld)pages;
     }
   }
+  for(i =0; i< MAXN; ++i){
+    for(j =0; j< MAXN; ++j){
+      sumColum[i] += stochasticM[j][i];
+      cout << stochasticM[j][i] << " ";
+    }
+    cout << "-->>: " << sumColum[i] << endl;
+  }
+  cout << endl;
   do{
     for(i =0; i< MAXN; ++i){
       for(j =0; j< MAXN; ++j){
@@ -42,26 +52,24 @@ int main(void){
     }
     for(i =0; i< MAXN; ++i){
       val = abs(PageRank[i]-X[i]);
-      if(val > result){
+      cout << result << " :: " << val <<endl;
+      if(val < result){
 	result = val;
       }
     }
-    cout << "->> " << result << endl;
-    if(tolerance > result){
+    cout << "Result ->> " << result << endl;
+    if(tolerance < result){
       cout << "AQUI" << endl;
       for(i =0; i< MAXN; ++i){
 	X[i] = PageRank[i];
+	cout << X[i] << " ";
       }
+      cout << endl;
     }
-  }while(tolerance < result);
-  
+  }while(tolerance < result)
   for(i =0; i< MAXN; ++i){
     cout << PageRank[i] << endl;
     SUMA += PageRank[i];
-    // for(j =0; j< MAXN; ++j){
-    //   cout << stochasticM[i][j] << " ";
-    // }
-    // cout << endl;
   }
   cout << "--»» " << SUMA << endl;
   return 0;
