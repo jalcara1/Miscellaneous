@@ -2,10 +2,8 @@
 #include <iomanip>
 using namespace std;
 
-#define MAXN 50
-
 int main(){
-  double x[MAXN],y[MAXN],z,l, valor=0;
+  double x[50],y[50],z,l, valor=0;
   int n;
   cout<<"Elementos: "; cin>>n;
   cout << "x: ";
@@ -22,7 +20,7 @@ int main(){
     l = y[i];
     for(int j=0; j<n; j++){
       if(i!=j){
-	l *= (z-x[j]) / (x[i]-x[j]);
+	l*=(z-x[j])/(x[i]-x[j]);
       }
     }
     valor = valor+l;
